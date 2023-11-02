@@ -1,67 +1,422 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Taipei MRT Info Tool</title>
-    <link rel="icon" type="image/png" th:href="@{/image/favicon.ico}"/>
-    <link rel="stylesheet" type="text/css" href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/png" th:href="@{/image/favicon.ico}" />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"
+    ></script>
     <script src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .btn-blue,
+        .btn-blue:hover,
+        .btn-blue:active,
+        .btn-blue:visited {
+          background-color: #89CFF0 !important;
+        }
+
+        .btn-brown,
+        .btn-brown:hover,
+        .btn-brown:active,
+        .btn-brown:visited {
+          background-color: #e1c16e !important;
+        }
+
+        .btn-pink,
+        .btn-pink:hover,
+        .btn-pink:active,
+        .btn-pink:visited {
+          background-color: #f2d2bd !important;
+        }
+
+        .btn-orange,
+        .btn-orange:hover,
+        .btn-orange:active,
+        .btn-orange:visited {
+          background-color: #ffa500 !important;
+        }
+
+        .btn-yellow,
+        .btn-yellow:hover,
+        .btn-yellow:active,
+        .btn-yellow:visited {
+          background-color: #FFFF00 !important;
+        }
+        #fixedbutton {
+          position: fixed;
+          bottom: 0px;
+          right: 0px;
+      }
+
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="row mt-5">
-               <div class="bg-light" style="height: 100px;">
-                   <div class="d-flex justify-content-center mt-3">
-                        <h3>台北捷運 各項功能查詢</h3>
-
-                   </div>
-               </div>
-            <div class="col-6 mt-3">
-                <div class="card mt-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">電扶梯資訊</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">我想知道哪個出口有上/下電扶梯</h6>
-<!--                        <p class="card-text"></p>-->
-                        <a href="#" class="card-link">前往功能</a>
-<!--                        <a href="#" class="card-link">Another link</a>-->
-                    </div>
-                </div>
-
-                <div class="card mt-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">無障礙電梯資訊</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">我想知道哪個出口有無障礙電梯</h6>
-                        <!--                        <p class="card-text"></p>-->
-                        <a href="#" class="card-link">前往功能</a>
-                        <!--                        <a href="#" class="card-link">Another link</a>-->
-                    </div>
-                </div>
-
-                <div class="card mt-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Youbike資訊</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">我想知道哪個出口有Youbike</h6>
-                        <!--                        <p class="card-text"></p>-->
-                        <a href="#" class="card-link">前往功能</a>
-                        <!--                        <a href="#" class="card-link">Another link</a>-->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 mt-3">
-              <h5>請選取捷運站</h5>
-                <button type="button" class="btn btn-outline-secondary">板南線</button>
-                <button type="button" class="btn btn-outline-secondary">文湖線</button>
-                <button type="button" class="btn btn-outline-secondary">松山新店線</button>
-                <button type="button" class="btn btn-outline-secondary">淡水信義線</button>
-                <button type="button" class="btn btn-outline-secondary">中和新蘆線</button>
-                <button type="button" class="btn btn-outline-secondary">環狀線</button>
+<div class="container">
+    <div class="row mt-5">
+        <div class="bg-light" style="height: 100px;">
+            <div class="d-flex justify-content-center mt-3">
+                <h3>台北捷運 各項功能查詢</h3>
             </div>
         </div>
+        <div class="col-6 mt-3">
+            <div class="card mt-3" style="width: 18rem;" id="escalator">
+                <div class="card-body">
+                    <h5 class="card-title">電扶梯資訊</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        我想知道哪個出口有上/下電扶梯
+                    </h6>
+                    <!--                        <p class="card-text"></p>-->
+                    <!-- <a href="#" class="card-link">前往功能</a> -->
+                    <!--                        <a href="#" class="card-link">Another link</a>-->
+                </div>
+            </div>
+
+            <div class="card mt-3" style="width: 18rem;" id="elevator">
+                <div class="card-body">
+                    <h5 class="card-title">無障礙電梯資訊</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        我想知道哪個出口有無障礙電梯
+                    </h6>
+                    <!--                        <p class="card-text"></p>-->
+                    <!-- <a href="#" class="card-link">前往功能</a> -->
+                    <!--                        <a href="#" class="card-link">Another link</a>-->
+                </div>
+            </div>
+
+            <div class="card mt-3" style="width: 18rem;" id="youbike">
+                <div class="card-body">
+                    <h5 class="card-title">Youbike資訊</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                        我想知道哪個出口有Youbike
+                    </h6>
+                    <!--                        <p class="card-text"></p>-->
+                    <!-- <a href="#" class="card-link">前往功能</a> -->
+                    <!--                        <a href="#" class="card-link">Another link</a>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 mt-3">
+            <h5>請選取捷運站</h5>
+            <button id="btn1" type="button" class="btn btn-outline-secondary">
+                板南線
+            </button>
+            <button id="btn2" type="button" class="btn btn-outline-secondary">
+                文湖線
+            </button>
+            <button id="btn3" type="button" class="btn btn-outline-secondary">
+                松山新店線
+            </button>
+            <button id="btn4" type="button" class="btn btn-outline-secondary">
+                淡水信義線
+            </button>
+            <button id="btn5" type="button" class="btn btn-outline-secondary">
+                中和新蘆線
+            </button>
+            <button id="btn6" type="button" class="btn btn-outline-secondary">
+                環狀線
+            </button>
+            <button id="btn6" type="button" class="btn btn-outline-secondary">
+                小碧潭線
+            </button>
+        </div>
+
+        <div class="col-6 mt-4">
+            <h5>您選擇的捷運站為 : <span id="choice"></span></h5>
+
+            <div class="mt-2">
+                <button class="btn btn-blue">送出</button>
+            </div>
+
+        </div>
+
+
+
+
     </div>
+
+    <div class="col mt-4 d-none" id="blue">
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL01">頂埔</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL02">永寧</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL03">土城</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL04">海山</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL05">亞東醫院</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL06">府中</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL07">板橋</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL08">新埔</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL09">江子翠</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL10">龍山寺</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL11">西門</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL12">台北車站</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL13">善導寺</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL14">
+            忠孝新生
+        </button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL15">
+            忠孝復興
+        </button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL16">
+            忠孝敦化
+        </button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL17">
+            國父紀念館
+        </button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL18">市政府</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL19">永春</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL20">後山埤</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL21">昆陽</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL22">南港</button>
+        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL23">
+            南港展覽館
+        </button>
+    </div>
+
+    <div class="col mt-4 d-none" id="brown">
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR01">動物園</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR02">木柵</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR03">萬芳社區</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR04">萬芳醫院</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR05">辛亥</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR06">麟光</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR07">六張犁</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR08">科技大樓</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR09">大安</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR10">忠孝復興</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR11">南京復興</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR12">中山國中</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR13">松山機場</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR14">大直</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR15">劍南路</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR16">西湖</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR17">港墘</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR18">文德</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR19">內湖</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR20">大湖公園</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR21">葫洲</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR22">東湖</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR23">南港軟體園區</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR24">南港展覽館</button>
+    </div>
+
+    <div class="col mt-4 d-none" id="green">
+        <button type="button" class="btn btn-success ms-2 mt-2">新店</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            新店區公所
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">七張</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">大坪林</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">景美</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">萬隆</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">公館</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            台電大樓
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">古亭</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            中正紀念堂
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">小南門</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">西門</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">北門</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">中山</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            松江南京
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            南京復興
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            台北小巨蛋
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">
+            南京三民
+        </button>
+        <button type="button" class="btn btn-success ms-2 mt-2">松山</button>
+    </div>
+
+    <div class="col mt-4 d-none" id="red">
+        <button type="button" class="btn btn-danger ms-2 mt-2">象山</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">
+            台北101/世貿
+        </button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">信義安和</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">大安</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">
+            大安森林公園
+        </button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">東門</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">
+            中正紀念堂
+        </button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">台大醫院</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">台北車站</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">中山</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">雙連</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">民權西路</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">圓山</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">劍潭</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">士林</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">芝山</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">明德</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">石牌</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">唭哩岸</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">奇岩</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">北投</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">復興崗</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">忠義</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">關渡</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">竹圍</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">紅樹林</button>
+        <button type="button" class="btn btn-danger ms-2 mt-2">淡水</button>
+        <button type="button" class="btn btn-pink ms-2 mt-2">新北投</button>
+    </div>
+
+    <div class="col mt-4 d-none" id="orange">
+        <button type="button" class="btn btn-orange ms-2 mt-2">南勢角</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">景安</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">永安市場</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">頂溪</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">古亭</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">東門</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">忠孝新生</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">松江南京</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">行天宮</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">中山國小</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">民權西路</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">大橋頭</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">台北橋</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">菜寮</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">三重</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">先嗇宮</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">頭前庄</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">新莊</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">輔大</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">丹鳳</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">迴龍</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">三重國小</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">三和國中</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">徐匯中學</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">三民高中</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">蘆洲</button>
+    </div>
+
+    <div class="col mt-4 d-none" id="yellow">
+        <button type="button" class="btn btn-yellow ms-2 mt-2">大坪林</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">十四張</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">秀朗橋</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">景平</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">景安</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">中和</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">橋和</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">中原</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">板新</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">板橋</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">新埔民生</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">頭前庄</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">幸福</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">新北產業園區</button>
+
+
+    </div>
+</div>
+
+
+</div>
+
+
+
+<script>
+    $('#btn1').on('click', function () {
+      var hidden = $('#blue').hasClass('d-none')
+      $('#brown,#green,#red,#orange,#yellow').addClass('d-none');
+      if (hidden) {
+        $('#blue').removeClass('d-none')
+      } else {
+        $('#blue').addClass('d-none')
+      }
+    })
+
+    $('#btn2').on('click', function () {
+      var hidden = $('#brown').hasClass('d-none')
+
+      $('#blue,#green,#red,#orange,#yellow').addClass('d-none');
+
+      if (hidden) {
+        $('#brown').removeClass('d-none')
+      } else {
+        $('#brown').addClass('d-none')
+      }
+    })
+
+    $('#btn3').on('click', function () {
+      var hidden = $('#green').hasClass('d-none')
+
+
+      $('#blue,#brown,#red,#orange,#yellow').addClass('d-none');
+
+      if (hidden) {
+        $('#green').removeClass('d-none')
+      } else {
+        $('#green').addClass('d-none')
+      }
+    })
+
+    $('#btn4').on('click', function () {
+      var hidden = $('#red').hasClass('d-none')
+      $('#blue,#brown,#green,#orange,#yellow').addClass('d-none');
+      if (hidden) {
+        $('#red').removeClass('d-none')
+      } else {
+        $('#red').addClass('d-none')
+      }
+    })
+
+    $('#btn5').on('click', function () {
+      var hidden = $('#orange').hasClass('d-none')
+      $('#blue,#brown,#green,#red,#yellow').addClass('d-none');
+      if (hidden) {
+        $('#orange').removeClass('d-none')
+      } else {
+        $('#orange').addClass('d-none')
+      }
+    })
+
+    $('#btn6').on('click', function () {
+      var hidden = $('#yellow').hasClass('d-none')
+      $('#blue,#brown,#green,#red,#orange').addClass('d-none');
+      if (hidden) {
+        $('#yellow').removeClass('d-none')
+      } else {
+        $('#yellow').addClass('d-none')
+      }
+    })
+
+  //   $('#escalator,#elevator,#youbike').on('click', function () {
+  //     $(this).css('background-color', '#A3D1D1')
+  //   })
+
+
+    $("#BL01,#BL02,#BL03,#BL04,#BL05,#BL06,#BL07,#BL08,#BL09,#BL10,#BL11,#BL12,#BL13,#BL14,#BL15,#BL16,#BL17,#BL18,#BL19,#BL20,#BL21,#BL22,#BL23,#BR01,#BR02,#BR03,#BR04,#BR05,#BR06,#BR07,#BR08,#BR09,#BR10,#BR11,#BR12,#BR13,#BR14,#BR15,#BR16,#BR17,#BR18,#BR19,#BR20,#BR21,#BR22,#BR23,#BR24")
+    .on("click",function(){
+      var text = $(this).text();
+      $("#choice").html("<b>"+text+"</b>")
+    });
+</script>
 </body>
 </html>
