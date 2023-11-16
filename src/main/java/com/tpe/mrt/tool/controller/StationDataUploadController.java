@@ -32,8 +32,6 @@ public class StationDataUploadController {
         System.out.println("fileName : " + fileName);
 
         try ( Workbook workbook = WorkbookFactory.create(multipartFile.getInputStream())) {
-
-
             Sheet sheet = workbook.getSheetAt(0);
             FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
             DataFormatter formatter = new DataFormatter();

@@ -172,7 +172,7 @@
     </div>
 
     <div class="col mt-4 d-none" id="blue">
-        <button type="button" class="btn btn-primary ms-2 mt-2" id="BL01">頂埔</button>
+        <!-- <button type="button" class="btn btn-primary ms-2 mt-2" id="BL01">頂埔</button>
         <button type="button" class="btn btn-primary ms-2 mt-2" id="BL02">永寧</button>
         <button type="button" class="btn btn-primary ms-2 mt-2" id="BL03">土城</button>
         <button type="button" class="btn btn-primary ms-2 mt-2" id="BL04">海山</button>
@@ -204,11 +204,11 @@
         <button type="button" class="btn btn-primary ms-2 mt-2" id="BL22">南港</button>
         <button type="button" class="btn btn-primary ms-2 mt-2" id="BL23">
             南港展覽館
-        </button>
+        </button> -->
     </div>
 
     <div class="col mt-4 d-none" id="brown">
-        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR01">動物園</button>
+        <!-- <button type="button" class="btn btn-brown ms-2 mt-2" id="BR01">動物園</button>
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR02">木柵</button>
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR03">萬芳社區</button>
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR04">萬芳醫院</button>
@@ -231,11 +231,11 @@
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR21">葫洲</button>
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR22">東湖</button>
         <button type="button" class="btn btn-brown ms-2 mt-2" id="BR23">南港軟體園區</button>
-        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR24">南港展覽館</button>
+        <button type="button" class="btn btn-brown ms-2 mt-2" id="BR24">南港展覽館</button> -->
     </div>
 
     <div class="col mt-4 d-none" id="green">
-        <button type="button" class="btn btn-success ms-2 mt-2">新店</button>
+        <!-- <button type="button" class="btn btn-success ms-2 mt-2">新店</button>
         <button type="button" class="btn btn-success ms-2 mt-2">
             新店區公所
         </button>
@@ -268,11 +268,11 @@
         <button type="button" class="btn btn-success ms-2 mt-2">
             南京三民
         </button>
-        <button type="button" class="btn btn-success ms-2 mt-2">松山</button>
+        <button type="button" class="btn btn-success ms-2 mt-2">松山</button> -->
     </div>
 
     <div class="col mt-4 d-none" id="red">
-        <button type="button" class="btn btn-danger ms-2 mt-2">象山</button>
+        <!-- <button type="button" class="btn btn-danger ms-2 mt-2">象山</button>
         <button type="button" class="btn btn-danger ms-2 mt-2">
             台北101/世貿
         </button>
@@ -305,11 +305,11 @@
         <button type="button" class="btn btn-danger ms-2 mt-2">竹圍</button>
         <button type="button" class="btn btn-danger ms-2 mt-2">紅樹林</button>
         <button type="button" class="btn btn-danger ms-2 mt-2">淡水</button>
-        <button type="button" class="btn btn-pink ms-2 mt-2">新北投</button>
+        <button type="button" class="btn btn-pink ms-2 mt-2">新北投</button> -->
     </div>
 
     <div class="col mt-4 d-none" id="orange">
-        <button type="button" class="btn btn-orange ms-2 mt-2">南勢角</button>
+        <!-- <button type="button" class="btn btn-orange ms-2 mt-2">南勢角</button>
         <button type="button" class="btn btn-orange ms-2 mt-2">景安</button>
         <button type="button" class="btn btn-orange ms-2 mt-2">永安市場</button>
         <button type="button" class="btn btn-orange ms-2 mt-2">頂溪</button>
@@ -334,11 +334,11 @@
         <button type="button" class="btn btn-orange ms-2 mt-2">三和國中</button>
         <button type="button" class="btn btn-orange ms-2 mt-2">徐匯中學</button>
         <button type="button" class="btn btn-orange ms-2 mt-2">三民高中</button>
-        <button type="button" class="btn btn-orange ms-2 mt-2">蘆洲</button>
+        <button type="button" class="btn btn-orange ms-2 mt-2">蘆洲</button> -->
     </div>
 
     <div class="col mt-4 d-none" id="yellow">
-        <button type="button" class="btn btn-yellow ms-2 mt-2">大坪林</button>
+        <!-- <button type="button" class="btn btn-yellow ms-2 mt-2">大坪林</button>
         <button type="button" class="btn btn-yellow ms-2 mt-2">十四張</button>
         <button type="button" class="btn btn-yellow ms-2 mt-2">秀朗橋</button>
         <button type="button" class="btn btn-yellow ms-2 mt-2">景平</button>
@@ -351,7 +351,7 @@
         <button type="button" class="btn btn-yellow ms-2 mt-2">新埔民生</button>
         <button type="button" class="btn btn-yellow ms-2 mt-2">頭前庄</button>
         <button type="button" class="btn btn-yellow ms-2 mt-2">幸福</button>
-        <button type="button" class="btn btn-yellow ms-2 mt-2">新北產業園區</button>
+        <button type="button" class="btn btn-yellow ms-2 mt-2">新北產業園區</button> -->
 
 
     </div>
@@ -364,7 +364,6 @@
 
 <script>
     $("#upload").on("click",function(){
-
       if ($('#formFile').get(0).files.length === 0) {
                 Swal.fire({
                     title: '請選擇檔案',
@@ -410,26 +409,69 @@
 
     })
 
+    function addButtons(data,lineColor){
+      let btnKind = "";
+      switch(lineColor) {
+        case "green":
+          btnKind = "success";
+          break;
+        case "blue":
+          btnKind = "primary";
+          break;
+        case "red":
+          btnKind = "danger";
+          break;
+        case "brown":
+          btnKind = "brown";
+          break;
+        case "orange":
+          btnKind = "orange";
+          break;
+        case "yellow":
+          btnKind = "yellow";
+          break;
+      }
+
+      // let btnBlockId =
+
+      let btnBlock = $(`#${lineColor}`);
+
+      console.log("btnBlock--->>"+btnBlock);
+
+      $.each(data, function(key, value) {
+        console.log(key, value);
+        console.log(value.stationName);
+        let addedBtn = `<button type='button' class='btn btn-${btnKind} ms-2 mt-2'>${value.stationName}</button>`;
+        btnBlock.append(addedBtn);
+
+      });
+    }
+
     $("#btn1,#btn2,#btn3,#btn4,#btn5,#btn6").on("click",function(){
-        var line = $(this).val();
-        console.log("which line:" + line);
+        let lineColor = $(this).val();
+        console.log("which line:" + lineColor);
 
-        // $.ajax({
-        //     type:"GET",
-        //     url:"/stations/" + line,
-        //     success:function(){
-        //       Swal.fire({
-        //         title: '我是Jean!',
-        //         text: 'Jean 你好',
-        //         icon: 'success',
-        //         confirmButtonText: 'Cool'
-        //       })
-        //     }
+        $.ajax({
+            type:"GET",
+            url:"/stations/" + lineColor,
+            dataType:"json",
+            success:function(data){
+              // console.log(data);
+              addButtons(data,lineColor);
+
+              // Swal.fire({
+              //   title: '我是Jean!',
+              //   text: '你點了:' +lineColor,
+              //   icon: 'success',
+              //   confirmButtonText: 'Cool'
+              // })
+        }
 
 
-        // });
+      });
 
     });
+
 
     $('#btn1').on('click', function () {
       var hidden = $('#blue').hasClass('d-none')
