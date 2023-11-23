@@ -13,4 +13,6 @@ public interface StationRepository extends JpaRepository<Station,Integer> , JpaS
 
     List<Station> findByLineColor(String lineColor);
 
+    List<Station> findByStationName(String stationName);
+
 }

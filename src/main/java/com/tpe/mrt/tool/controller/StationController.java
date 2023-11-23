@@ -2,6 +2,7 @@ package com.tpe.mrt.tool.controller;
 
 import com.tpe.mrt.tool.entity.Station;
 import com.tpe.mrt.tool.repository.StationRepository;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,15 +29,13 @@ public class StationController {
     public ResponseEntity<List<Station>> getStations(@PathVariable String lineColor) {
         List<Station> stationList = new ArrayList<>();
 
-        try{
-            System.out.println("我按了哪一條線? -->" + lineColor);
-
-            if(StringUtils.isNotBlank(lineColor)){
+        try {
+            if (StringUtils.isNotBlank(lineColor)) {
                 stationList = stationRepository.findByLineColor(lineColor);
             }
 
             stationList.stream().forEach(s -> System.out.println(s.getStationNameEn()));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -44,6 +43,27 @@ public class StationController {
     }
 
 
+    @GetMapping("/stations/getStationInfo/{stationName}")
+    public ResponseEntity<Station> getStationInfo(@PathVariable String stationName) {
+        Station station = new Station();
+        try{
+            System.out.println("stationName:" + stationName);
+            List<Station> list = stationRepository.findByStationName(stationName);
+
+            if (CollectionUtils.isNotEmpty(list)) {
+                station = list.get(0);
+            }
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok().body(station);
+
+
+    }
 
 
 }
