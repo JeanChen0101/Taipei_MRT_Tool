@@ -1,18 +1,19 @@
 package com.tpe.mrt.tool.controller;
 
 import com.tpe.mrt.tool.entity.Station;
+import com.tpe.mrt.tool.form.StationData;
 import com.tpe.mrt.tool.repository.StationRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,7 @@ public class StationController {
                 stationList = stationRepository.findByLineColor(lineColor);
             }
 
-            stationList.stream().forEach(s -> System.out.println(s.getStationNameEn()));
+//            stationList.stream().forEach(s -> System.out.println(s.getStationNameEn()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,7 +47,8 @@ public class StationController {
     @GetMapping("/stations/getStationInfo/{stationName}")
     public ResponseEntity<Station> getStationInfo(@PathVariable String stationName) {
         Station station = new Station();
-        try{
+        StationData stationData = new StationData();
+        try {
             System.out.println("stationName:" + stationName);
             List<Station> list = stationRepository.findByStationName(stationName);
 
@@ -55,8 +57,34 @@ public class StationController {
             }
 
 
+            BeanUtils.copyProperties(station, stationData);
 
-        }catch(Exception e){
+            String upEscalator_original = station.getUpEscalator();
+            String downEscalator_original = station.getDownEscalator();
+            String bothDirectionsEscalator_original = station.getBothDirectionsEscalator();
+            String elevator_original = station.getElevator();
+            String paidWC_original = station.getPaidWC();
+            String freeWClocate_original = station.getFreeWClocate();
+
+//            List<String> upEscalatorList = getFormedData(upEscalator_original);
+//            List<String> downEscalatorList = getFormedData(downEscalator_original);
+//            List<String> bothDirectionsEscalatorList = getFormedData(bothDirectionsEscalator_original);
+//            List<String> elevatorList = getFormedData(elevator_original);
+//            List<String> paidWCList = getFormedData(paidWC_original);
+//            List<String> freeWClocateList = getFormedData(freeWClocate_original);
+
+
+
+            station.setUpEscalator(getFormedData(upEscalator_original));
+            station.setDownEscalator(getFormedData(downEscalator_original));
+            station.setBothDirectionsEscalator(getFormedData(bothDirectionsEscalator_original));
+            station.setElevator(getFormedData(elevator_original));
+            station.setPaidWC(getFormedData(paidWC_original));
+            station.setFreeWClocate(getFormedData(freeWClocate_original));
+
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -64,6 +92,40 @@ public class StationController {
 
 
     }
+
+
+    private boolean isNumber(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    private String getFormedData(String originalData) {
+        List<String> formedData = new ArrayList<>();
+        try {
+            if (StringUtils.isNotBlank(originalData)) {
+                List<String> originalDataList = Arrays.asList(originalData.split(","));
+
+                for (String escalator : originalDataList) {
+                    String info = isNumber(escalator) ? "出口" + escalator : escalator;
+                    formedData.add(info);
+                }
+            }
+            formedData.toString().replace("[","").replace("]","");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return formedData.toString().replace("[","").replace("]","");
+    }
+
+
+
+
+
+
+
 
 
 }

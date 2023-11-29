@@ -74,6 +74,8 @@ public class StationDataUploadController {
                     if (StringUtils.isNotBlank(freeWClocate)) station.setFreeWClocate(freeWClocate);
                     if (StringUtils.isNotBlank(note)) station.setNote(note);
                     repository.saveAndFlush(station);
+
+
                 }
 
             }

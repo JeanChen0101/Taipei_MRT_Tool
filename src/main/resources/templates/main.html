@@ -145,19 +145,14 @@
             <div class="col mt-4 d-none main-btn" id="yellow"></div>
         </div>
 
-
-
-
-
-
         <div class="col-3 mt-4 d-flex align-items-stretch info d-none">
             <div class="card" style="width: 18rem;">
                 <img src="image/escalator.jpg" class="card-img-top mx-auto d-block" alt="...">
                 <div class="card-body">
                     <h4 class="card-title text-center"><b>電扶梯</b></h4>
-                    <h6 class="mt-2">往上電扶梯：</h6>
-                    <h6>往下電扶梯：</h6>
-                    <h6>雙向電扶梯：</h6>
+                    <h6 class="mt-2">往上電扶梯：<span id="upEscalator"></span></h6>
+                    <h6>往下電扶梯：<span id="downEscalator"></span></h6>
+                    <h6>雙向電扶梯：<span id="bothDirectionsEscalator"></span></h6>
                 </div>
             </div>
         </div>
@@ -166,7 +161,7 @@
                 <img src="image/elevator.jpg" class="card-img-top mx-auto d-block" alt="...">
                 <div class="card-body">
                     <h4 class="card-title text-center"><b>無障礙電梯</b></h4>
-                    <h6 class="mt-2"></h6>
+                    <h6 class="mt-2"><span id="elevator"></span></h6>
 
                 </div>
             </div>
@@ -176,8 +171,8 @@
                 <img src="image/toilet.png" class="card-img-top mx-auto d-block" alt="...">
                 <div class="card-body">
                     <h4 class="card-title text-center"><b>廁所</b></h4>
-                    <h6 class="mt-2">站內廁所：</h6>
-                    <h6>站外廁所：</h6>
+                    <h6 class="mt-2">站內廁所：<span id="paidWC"></span></h6>
+                    <h6>站外廁所：<span id="freeWClocate"></span></h6>
                 </div>
             </div>
         </div>
@@ -187,7 +182,7 @@
                 <img src="image/bike.png" class="card-img-top mx-auto d-block" alt="...">
                 <div class="card-body">
                     <h4 class="card-title text-center"><b>自行車/Youbike</b></h4>
-                    <h6 class="mt-2">是否開放自行車：</h6>
+                    <h6 class="mt-2">是否開放自行車：<span id="allowBike"></span></h6>
                     <h6>Youbike：</h6>
                 </div>
             </div>
@@ -204,7 +199,7 @@
             </div>
         </div> -->
         <div class="col-12 mt-3 info d-none">
-            <h5>備註：</h5>
+            <h5>備註：<span id="note"></span></h5>
         </div>
         <!--        <div class="col-4">-->
         <!--            <div class="col mt-4 d-none main-btn" id="blue"></div>-->
@@ -296,11 +291,8 @@
 
       let btnBlock = $(`#${lineColor}`);
 
-      console.log("btnBlock--->>"+btnBlock);
 
       $.each(data, function(key, value) {
-        console.log(key, value);
-        console.log(value.stationName);
         let addedBtn = `<button type='button' class='btn btn-${btnKind} ms-2 mt-2 idv'>${value.stationName}</button>`;
         btnBlock.append(addedBtn);
       });
@@ -322,9 +314,15 @@
 
     $("#btn1,#btn2,#btn3,#btn4,#btn5,#btn6").on("click",function(){
         let lineColor = $(this).val();
-        console.log("which line:" + lineColor);
+<!--        console.log("which line:" + lineColor);-->
 
         $(".main-btn").children("button").remove();
+
+        var hidden = $(".info").hasClass("d-none");
+
+        if(!hidden){
+            $(".info").addClass("d-none");
+        }
 
         $.ajax({
             type:"GET",
@@ -419,16 +417,14 @@
   //   })
 
 
-   $("button:button.idv")
-    .live("click",function(){
-      var text = $(this).text();
-      $("#choice").html("<b>"+text+"</b>")
-    });
-
+       $("button:button.idv")
+        .live("click",function(){
+          var text = $(this).text();
+          $("#choice").html("<b>"+text+"</b>")
+        });
 
     $("#query-submit").on("click",function(){
         let stationName = $("#choice").text();
-        alert("stationName:" + stationName);
 
         $.ajax({
             type:"GET",
@@ -436,28 +432,22 @@
             dataType:"json",
             success:function(data){
                 var hidden = $(".info").hasClass("d-none");
+
+                $("#upEscalator").html(data.upEscalator);
+                $("#downEscalator").html(data.downEscalator);
+                $("#bothDirectionsEscalator").html(data.bothDirectionsEscalator);
+                $("#elevator").html(data.elevator);
+                $("#paidWC").html(data.paidWC);
+                $("#freeWClocate").html(data.freeWClocate);
+                $("#allowBike").html(data.allowBike ? "開放":"不開放");
+
+                $("#note").html(data.note);
+
+
                 if(hidden){
                      $(".info").removeClass("d-none");
                 }
-
-
-              console.log(data.stationNameEn);
-
-
-
-
-              // Swal.fire({
-              //   title: '我是Jean!',
-              //   text: '你點了:' +lineColor,
-              //   icon: 'success',
-              //   confirmButtonText: 'Cool'
-              // })
             }
-
-
-
-
-
 
         })
 
