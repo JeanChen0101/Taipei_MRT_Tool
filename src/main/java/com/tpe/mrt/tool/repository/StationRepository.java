@@ -15,4 +15,6 @@ public interface StationRepository extends JpaRepository<Station,Integer> , JpaS
 
     List<Station> findByStationName(String stationName);
 
+    List<Station> stationNameEn(String stationNameEn);
+
 }

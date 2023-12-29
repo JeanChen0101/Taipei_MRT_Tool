@@ -1,10 +1,16 @@
+#runtime: java
+#env: flex
+#runtime_config:
+#  runtime_version: 11
+#handlers:
+#  - url: /.*
+#    script: this field is required, but ignored
+#
+#manual_scaling:
+#  instances: 1
 runtime: java
 env: flex
-runtime_config:
-  runtime_version: 11
+
 handlers:
   - url: /.*
     script: this field is required, but ignored
-
-manual_scaling:
-  instances: 1

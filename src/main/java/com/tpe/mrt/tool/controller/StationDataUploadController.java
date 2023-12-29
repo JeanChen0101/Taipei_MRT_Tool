@@ -19,7 +19,6 @@ public class StationDataUploadController {
 
     @Autowired
     private StationRepository repository;
-    private static final String FILE_PATH = "D:\\02_Jean_Project\\01_Taipei_MRT_Tool\\station_data.xlsx";
 
 
     //上傳北捷資料 excel file，然後insert 進db
@@ -32,6 +31,8 @@ public class StationDataUploadController {
         System.out.println("fileName : " + fileName);
 
         try ( Workbook workbook = WorkbookFactory.create(multipartFile.getInputStream())) {
+            repository.deleteAll();
+
             Sheet sheet = workbook.getSheetAt(0);
             FormulaEvaluator formulaEvaluator = workbook.getCreationHelper().createFormulaEvaluator();
             DataFormatter formatter = new DataFormatter();
@@ -73,6 +74,7 @@ public class StationDataUploadController {
                     if (StringUtils.isNotBlank(paidWC)) station.setPaidWC(paidWC);
                     if (StringUtils.isNotBlank(freeWClocate)) station.setFreeWClocate(freeWClocate);
                     if (StringUtils.isNotBlank(note)) station.setNote(note);
+
                     repository.saveAndFlush(station);
 
 

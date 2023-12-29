@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,13 +31,11 @@ public class StationController {
     @GetMapping("/stations/{lineColor}")
     public ResponseEntity<List<Station>> getStations(@PathVariable String lineColor) {
         List<Station> stationList = new ArrayList<>();
-
+//        System.out.println("lineColor : " + lineColor);
         try {
             if (StringUtils.isNotBlank(lineColor)) {
                 stationList = stationRepository.findByLineColor(lineColor);
             }
-
-//            stationList.stream().forEach(s -> System.out.println(s.getStationNameEn()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +49,9 @@ public class StationController {
         Station station = new Station();
         StationData stationData = new StationData();
         try {
-            System.out.println("stationName:" + stationName);
+//            System.out.println("stationName:" + stationName);
+
+            stationName = URLDecoder.decode(stationName, StandardCharsets.UTF_8);
             List<Station> list = stationRepository.findByStationName(stationName);
 
             if (CollectionUtils.isNotEmpty(list)) {
@@ -74,14 +76,12 @@ public class StationController {
 //            List<String> freeWClocateList = getFormedData(freeWClocate_original);
 
 
-
             station.setUpEscalator(getFormedData(upEscalator_original));
             station.setDownEscalator(getFormedData(downEscalator_original));
             station.setBothDirectionsEscalator(getFormedData(bothDirectionsEscalator_original));
             station.setElevator(getFormedData(elevator_original));
             station.setPaidWC(getFormedData(paidWC_original));
             station.setFreeWClocate(getFormedData(freeWClocate_original));
-
 
 
         } catch (Exception e) {
@@ -112,20 +112,13 @@ public class StationController {
                     formedData.add(info);
                 }
             }
-            formedData.toString().replace("[","").replace("]","");
+            formedData.toString().replace("[", "").replace("]", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return formedData.toString().replace("[","").replace("]","");
+        return formedData.toString().replace("[", "").replace("]", "");
     }
-
-
-
-
-
-
-
 
 
 }
